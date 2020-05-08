@@ -17,6 +17,7 @@ class list
 private:
 	list_node<T>* head;
 	list_node<T>* tail;
+	size_t size;
 
 public:
 	list();		  
@@ -26,6 +27,8 @@ public:
 	list& operator=(list &&);
 	void dispay();
 	void push(const T &);
+	void list_destroy();
+	void get_list_size();
 	list_node<T>* get_head();
 	list_node<T>* get_tail();
 	bool empty();
