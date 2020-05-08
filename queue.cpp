@@ -58,12 +58,13 @@ queue<T>::queue(queue && other) : front(other.front),
 template<class T>
 queue<T>& queue<T>::operator=(const queue & other)
 {
-	if(this != &other) {
+	if(this != &other && other.front) {
 		queue_node<T>* ptr = other.front;
 		for(int i = 0; i < other.size; ++i) {
 			enqueue(ptr->data);
 			ptr = ptr->next;
 		}
+		size += other.size;
 	}
 	return *this;
 }
@@ -72,7 +73,7 @@ template<class T>
 queue<T>& queue<T>::operator=(queue && other)
 {
 	if(this != &other) {
-		destroy(front);
+		queue_destroy(front);
 		front = other.front;
 		rear  = other.rear;
 		size  = other.size;
@@ -80,6 +81,7 @@ queue<T>& queue<T>::operator=(queue && other)
 		other.rear  = nullptr;
 		size = 0;
 	}
+	return *this;
 }
 
 template<class T>
@@ -167,7 +169,7 @@ void queue<T>::display_size()
 }
 
 template<class T>
-void queue<T>::destroy(queue_node<T>* ptr) {
+void queue<T>::queue_destroy(queue_node<T>* ptr) {
 	if(ptr){
 		queue_node<T>* tmp = ptr;
 		while(ptr) {
@@ -182,5 +184,5 @@ void queue<T>::destroy(queue_node<T>* ptr) {
 template<class T>
 queue<T>::~queue()
 {
-	destroy(front);
+	queue_destroy(front);
 }

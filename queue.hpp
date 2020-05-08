@@ -27,7 +27,7 @@ public:
 	T dequeue();
 	~queue();
 private:
-	void destroy(queue_node<T>*);
+	void queue_destroy(queue_node<T>*);
 	queue_node<T>* front;
 	queue_node<T>* rear;
 	size_t size;
